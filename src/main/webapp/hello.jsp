@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +7,7 @@
 <body>
     <h1><%= "Hello World!" %></h1>
     <br/>
-    <a href="hello-servlet">Hello Servlet</a>
+<%--    <a href="/ch06/jspTotal.jsp">Hello Servlet</a>--%>
+    현재 날짜와 시간은 : <%=java.time.LocalDateTime.now()%>
 </body>
 </html>

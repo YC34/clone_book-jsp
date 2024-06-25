@@ -9,4 +9,13 @@
   * idle : intellij 
   * build : gradle 
 
-         
+## ISSUE
+* JSTL 사용 방법 변경됨. javax -> jakarta로 변경 됨.
+  * tomcat 10.0.0 이상, spring 3.0 이상 
+  * 변경 사항
+    * uri = <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+    * dependency -   
+      * implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api', version: '3.0.0' 
+      * implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.0'
+
+    
