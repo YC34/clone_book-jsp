@@ -9,7 +9,7 @@
   * idle : intellij 
   * build : gradle 
 
-## ISSUE
+### ISSUE
 * JSTL 사용 방법 변경됨. javax -> jakarta로 변경 됨.
   * tomcat 10.0.0 이상, spring 3.0 이상 
   * 변경 사항
