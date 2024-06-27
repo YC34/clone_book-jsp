@@ -8,6 +8,7 @@
   * os : mac
   * idle : intellij 
   * build : gradle 
+  * DB : oracle-11g
 
 ### ISSUE
 * JSTL 사용 방법 변경됨. javax -> jakarta로 변경 됨.
@@ -18,4 +19,5 @@
       * implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api', version: '3.0.0' 
       * implementation group: 'org.glassfish.web', name: 'jakarta.servlet.jsp.jstl', version: '3.0.0'
 
-    
+* 2024.06.27 ch10 패키지
+  * img파일 경로 저장이 안됨
