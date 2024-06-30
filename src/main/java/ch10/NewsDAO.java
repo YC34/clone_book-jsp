@@ -29,9 +29,9 @@ public class NewsDAO {
         String sql = "insert into news(title,img,NEWS_DATE,content) values(?,?,sysdate,?)";
         PreparedStatement pstmt = conn.prepareStatement(sql);
 
-
         // try-with-resource문
         try(conn; pstmt){
+            System.out.println("img src : "+n.getImg());
             pstmt.setString(1, n.getTitle());
             pstmt.setString(2, n.getImg());
             pstmt.setString(3, n.getContent());
@@ -44,18 +44,18 @@ public class NewsDAO {
         Connection conn = open();
         List<News> newsList = new ArrayList<News>();
 
-        String sql = "select aid,title, to_date(NEWS_DATE,'yyyy-MM-dd hh:mi:ss') as cdate from news";
+        String sql = "select aid,title, news_date as cdate from news";
 
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
 
         try(conn;pstmt;rs){
-            News n = new News();
             while(rs.next()){
+                News n = new News();
+                System.out.println(rs.getInt("aid"));
                 n.setAid(rs.getInt("aid"));
                 n.setTitle(rs.getString("title"));
                 n.setDate(rs.getString("cdate"));
-
                 newsList.add(n);
             }
             return newsList;
@@ -67,27 +67,24 @@ public class NewsDAO {
     public News getNews(int aid) throws SQLException {
         Connection conn = open();
         News n = new News();
-        String sql = "select aid, title, img, to_date(NEWS_DATE,'yyyy-MM-dd hh:mi:ss') as cdate , content from news where aid = ?";
+        String sql = "select aid, title, img, news_date as cdate , content from news where aid = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, aid);
         ResultSet rs = pstmt.executeQuery();
 
         if(!rs.next()){
             throw new SQLException("aid가 잘못되었습니다.");
+        }else {
+            try(conn;pstmt;rs){
+                n.setAid(rs.getInt("aid"));
+                n.setTitle(rs.getString("title"));
+                n.setImg(rs.getString("img"));
+                n.setDate(rs.getString("cdate"));
+                n.setContent(rs.getString("content"));
+                pstmt.executeQuery();
+                return n;
+            }
         }
-        rs.next();
-
-
-        try(conn;pstmt;rs){
-            n.setAid(rs.getInt("aid"));
-            n.setTitle(rs.getString("title"));
-            n.setImg(rs.getString("img"));
-            n.setDate(rs.getString("cdate"));
-            n.setContent(rs.getString("content"));
-            pstmt.executeQuery();
-            return n;
-        }
-
     }
 
 

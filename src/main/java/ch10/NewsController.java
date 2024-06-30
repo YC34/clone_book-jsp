@@ -15,14 +15,14 @@ import java.util.List;
 
 
 @WebServlet(urlPatterns = "/news.nhn")
-@MultipartConfig(maxFileSize = 1024 * 1024 * 10, location = "/Users/y_chan/study/JSP/test/src/main/java/ch10/img")
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10, location = "/Users/y_chan/study/JSP/test/src/main/webapp/ch10/img")
 public class NewsController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private NewsDAO dao;
     private ServletContext ctx;
 
-    private final String START_PAGE = "/ch10/newsList.jsp";
+    private final String START_PAGE = "ch10/newsList.jsp";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -41,13 +41,12 @@ public class NewsController extends HttpServlet {
         Method m; // java reflect
         String view = null;
 
-        if(action== null){
+        if(action == null){
             action = "listNews";
         }
 
         try{
             m = this.getClass().getMethod(action,HttpServletRequest.class);
-
             view = (String)m.invoke(this,request);
 
         }catch (NoSuchMethodException e){
@@ -76,6 +75,7 @@ public class NewsController extends HttpServlet {
         try{
             Part part = request.getPart("file");
             String fileName = getFileName(part);
+            System.out.println("fileName : " +fileName);
             if(fileName != null && !fileName.isEmpty()){
                 part.write(fileName);
             }
@@ -83,12 +83,12 @@ public class NewsController extends HttpServlet {
             String title = request.getParameter("title");
             String date = request.getParameter("date");
             String content = request.getParameter("content");
-            String img = request.getParameter("img");
+
 
             n.setTitle(title);
             n.setDate(date);
             n.setContent(content);
-            n.setImg("/img/"+img);
+            n.setImg("/ch10/img/"+fileName);
 
             dao.addNews(n);
 
@@ -112,7 +112,6 @@ public class NewsController extends HttpServlet {
             request.setAttribute("error","뉴스가 정상적으로 삭제되지 않았습니다.");
             return listNews(request);
         }
-
         return "redirect:/news.nhn?action=listNews";
 
     }
@@ -133,6 +132,7 @@ public class NewsController extends HttpServlet {
 
     public String getNews(HttpServletRequest request){
         int aid = Integer.parseInt(request.getParameter("aid"));
+
         try{
             News n = dao.getNews(aid);
             request.setAttribute("news", n);
@@ -147,7 +147,6 @@ public class NewsController extends HttpServlet {
     private String getFileName(Part part){
         String fileName = null;
         String header = part.getHeader("content-disposition");
-        System.out.println("header =>"+header);
         int start = header.indexOf("filename=");
         fileName = header.substring(start+10,header.length()-1);
         ctx.log("파일명 :"+fileName);
