@@ -6,6 +6,8 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionAttributeListener;
+import jakarta.servlet.http.HttpSessionBindingEvent;
+import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 
 @WebListener
@@ -40,5 +42,21 @@ public class ListenerExam implements ServletContextListener ,
     public void attributeRemoved(ServletContextAttributeEvent scae) {
         scae.getServletContext().log("ServletContext 속성 삭제: "+scae.getValue());
     }
+
+    // session event 구현
+    public void sessionCreated(HttpSessionEvent se) {
+        se.getSession().getServletContext().log("Session 생성됨 : "+se.getSession().getId());
+    }
+
+    public void sessionDestroyed(HttpSessionEvent se) {
+        se.getSession().getServletContext().log("Session 회수됨 : "+ se.getSession().getId());
+    }
+
+    public void attributeAdded(HttpSessionBindingEvent sbe) {
+        sbe.getSession().getServletContext().log("Session 속성 추가 : "+ sbe.getValue());
+    }
+
+
+
 }
 

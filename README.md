@@ -9,6 +9,7 @@
   * idle : intellij 
   * build : gradle 
   * DB : oracle-11g
+  * 특이 사항 : web.xml에 파일보다는 annotation을 사용하였다
 
 ### ISSUE
 * JSTL 사용 방법 변경됨. javax -> jakarta로 변경 됨.

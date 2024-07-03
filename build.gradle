@@ -33,6 +33,11 @@ dependencies {
     // oracle jdbc
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc6', version: '11.2.0.4'
 
+    // rest jax-rs
+    implementation group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet', version: '4.0.0-M1'
+    implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '4.0.0-M1'
+    implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '4.0.0-M1'
+
 
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
